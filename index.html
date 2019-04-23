@@ -4,27 +4,106 @@
   <title>SVG.js</title>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.7.1/svg.min.js"></script>
   <link rel="stylesheet" href="https://use.typekit.net/mgf6uol.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div style="font-family: orator-std; font-size: 42px;">Rob's Skincare Routine</div>
-<div id="drawing"></div>
+
+<div class="container">
+    <div class="row">
+        <div style="font-family: orator-std; font-size: 42px;">Rob's Skincare Routine</div>
+    </div>
+    <div class="row">
+        <div id="drawing"></div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Your name">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Morning Category 1">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Evening Category 1">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Morning Product Text 1">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Evening Product Text 1">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <!-- end .container -->
+
 <script type="text/javascript">
     SVG.on(document, 'DOMContentLoaded', function() {
+        var halfSize = 300;
+        var height = 680;
         // initialize
-        document.getElementById('drawing').style.height = '680px';
+        document.getElementById('drawing').style.height = height + 'px';
+        document.getElementById('drawing').style.width = '100%';
         var draw = SVG('drawing');
         // base shapes
-        draw.rect(300, 680).radius(10).fill('#f6eeae');
-        draw.rect(300, 680).radius(10).move(300, 0).fill('#92b0e6');
+        draw.rect(halfSize, height).radius(10).fill('#f6eeae');
+        draw.rect(halfSize, height).radius(10).move(halfSize, 0).fill('#92b0e6');
         // header text and icons
-        var text = draw.text('Morning');
-        text.move(90, 20).font({ fill: '#000', size: 42, family: 'orator-std' });
-        var text = draw.text('Evening');
-        text.move(390, 20).font({ fill: '#000', size: 42, family: 'orator-std' });
+        draw.text('Morning').move(90, 20).font({ fill: '#000', size: 42, family: 'orator-std' });
+        draw.text('Evening').move(halfSize + 90, 20).font({ fill: '#000', size: 42, family: 'orator-std' });
+        draw.line(100, 78, 252, 78).stroke({ width: 2 });
+        draw.line(halfSize + 100, 78, halfSize + 252, 78).stroke({ width: 2 });
         draw.image('sun.png', 61, 62).move(18, 12);
         draw.image('moon.png', 51, 51).move(334, 20);
+        draw.image('lotion.png', 105, 105).move(10, height - 105);
         // setup step circles
-        
+        // (simply add another 100px for each)
+        // TODO: figure out text anchor for centering: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
+        var circleXOffset = 260;
+        var stepYOffset = 100;
+        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
+        draw.text('1').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
+        draw.text('Cleanser').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('CeraVe Hydrating Facial Cleanser').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+        draw.text('Cleanser').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('CeraVe Hydrating Facial Cleanser').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+
+        stepYOffset = 200;
+        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
+        draw.text('2').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
+        draw.text('Active').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('Melano CC Vitamin C Serum').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+        draw.text('Active').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('Active of the day :) see below').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+
+        stepYOffset = 300;
+        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
+        draw.text('3').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
+        draw.text('Essence').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('CosRX 96 Snail Mucin Power Essence').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+        draw.text('Essence').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('CosRX 96 Snail Mucin Power Essence').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+
+        stepYOffset = 400;
+        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
+        draw.text('4').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
+        draw.text('Moisturizer').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('CeraVe Moisturizing Cream').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+        draw.text('Moisturizer').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('CeraVe Moisturizing Cream').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+
+        stepYOffset = 500;
+        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
+        draw.text('5').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
+        draw.text('Sunscreen').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('Bioré UV Watery Essence SPF50').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+        draw.text('Optional').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+        draw.text('Sheet Mask').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
     });
 </script>
 </body>
