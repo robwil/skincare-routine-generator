@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SVG.js</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.7.1/svg.min.js"></script>
+  <link rel="stylesheet" href="https://use.typekit.net/mgf6uol.css">
+</head>
+<body>
+<div style="font-family: orator-std; font-size: 42px;">Rob's Skincare Routine</div>
+<div id="drawing"></div>
+<script type="text/javascript">
+    SVG.on(document, 'DOMContentLoaded', function() {
+        // initialize
+        document.getElementById('drawing').style.height = '680px';
+        var draw = SVG('drawing');
+        // base shapes
+        draw.rect(300, 680).radius(10).fill('#f6eeae');
+        draw.rect(300, 680).radius(10).move(300, 0).fill('#92b0e6');
+        // header text and icons
+        var text = draw.text('Morning');
+        text.move(90, 20).font({ fill: '#000', size: 42, family: 'orator-std' });
+        var text = draw.text('Evening');
+        text.move(390, 20).font({ fill: '#000', size: 42, family: 'orator-std' });
+        draw.image('sun.png', 61, 62).move(18, 12);
+        draw.image('moon.png', 51, 51).move(334, 20);
+        // setup step circles
+        
+    });
+</script>
+</body>
+</html>
