@@ -21,6 +21,15 @@
         </div>
         <div class="col-6 mt-4">
             <form>
+                <small id="helpBlock" class="form-text text-muted">
+                    Usage Tips:
+                    <ul>
+                        <li>Fill in from top to bottom.</li>
+                        <li>Clear out both Morning & Evening category names to remove a step you don't need.</li>
+                        <li>Uncheck box for Actives if you don't need that section.</li>
+                    </ul>
+                </small>
+
                 <div class="form-group">
                     <input type="text" class="form-control" id="nameInput" value="Lorem">
                 </div>
@@ -347,6 +356,7 @@
         return out;
     }
 
+    // TODO: make title optional. if enabled, put title in exported image
     // TODO: add color pickers like https://bgrins.github.io/spectrum/
     // TODO: mobile support. consider editing with text.on('click', function() {...} ) instead of side form
 
