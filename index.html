@@ -8,33 +8,117 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div style="font-family: orator-std; font-size: 42px;">Rob's Skincare Routine</div>
-    </div>
-    <div class="row">
-        <div id="drawing"></div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-lg">
+        <div class="col-6">
+                <div style="font-family: orator-std; font-size: 42px;"><span id="namePlace">Lorem</span>'s Skincare Routine</div>
+            <div id="drawing"></div>
+        </div>
+        <div class="col-6 mt-4">
             <form>
                 <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Your name">
+                    <input type="text" class="form-control" id="nameInput" value="Lorem">
                 </div>
-                <div class="row">
+
+                <div class="row mt-4">
                     <div class="col">
-                        <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Morning Category 1">
+                        <input type="text" class="form-control" id="morningCategory1" value="Cleanser">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Evening Category 1">
+                        <input type="text" class="form-control" id="eveningCategory1" value="Cleanser">
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col">
-                        <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Morning Product Text 1">
+                        <input type="text" class="form-control" id="morningProduct1" value="Morning Product 1">
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control form-control-lg" id="nameInput" placeholder="Evening Product Text 1">
+                        <input type="text" class="form-control" id="eveningProduct1" value="Evening Product 1">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningCategory2" value="Active">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningCategory2" value="Active">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningProduct2" value="Morning Product 2">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningProduct2" value="Evening Product 2">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningCategory3" value="Essence">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningCategory3" value="Essence">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningProduct3" value="Morning Product 3">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningProduct3" value="Evening Product 3">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningCategory4" value="Moisturizer">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningCategory4" value="Moisturizer">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningProduct4" value="Morning Product 4">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningProduct4" value="Evening Product 4">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningCategory5" value="Sunscreen">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningCategory5" value="Optional">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningProduct5" value="Morning Product 5">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningProduct5" value="Evening Product 5">
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningCategory6" value="" placeholder="Optional 6th Step">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningCategory6" value="" placeholder="Optional 6th Step">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" class="form-control" id="morningProduct6" value="">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="eveningProduct6" value="">
                     </div>
                 </div>
             </form>
@@ -43,13 +127,32 @@
 </div> <!-- end .container -->
 
 <script type="text/javascript">
+    var MAX_STEPS = 6;
+    var draw;
     SVG.on(document, 'DOMContentLoaded', function() {
+        draw = SVG('drawing');
+        regenerateChart();
+    });
+    var getNumberOfSteps = function() {
+        // loop until empty step category found
+        for (var i = 1; i <= MAX_STEPS; i++) {
+            if (document.getElementById('morningCategory' + i).value === '' && document.getElementById('eveningCategory' + i).value === '') {
+                return i-1;
+            }
+        }
+        return MAX_STEPS;
+    };
+    var regenerateChart = function() {
+        draw.clear();
+
+        var numSteps = getNumberOfSteps();
         var halfSize = 300;
-        var height = 680;
+        var height = 180 + (numSteps * 100);
+
         // initialize
+        document.getElementById('namePlace').innerHTML = document.getElementById('nameInput').value;
         document.getElementById('drawing').style.height = height + 'px';
         document.getElementById('drawing').style.width = '100%';
-        var draw = SVG('drawing');
         // base shapes
         draw.rect(halfSize, height).radius(10).fill('#f6eeae');
         draw.rect(halfSize, height).radius(10).move(halfSize, 0).fill('#92b0e6');
@@ -60,51 +163,32 @@
         draw.line(halfSize + 100, 78, halfSize + 252, 78).stroke({ width: 2 });
         draw.image('sun.png', 61, 62).move(18, 12);
         draw.image('moon.png', 51, 51).move(334, 20);
-        draw.image('lotion.png', 105, 105).move(10, height - 105);
+        
         // setup step circles
-        // (simply add another 100px for each)
-        // TODO: figure out text anchor for centering: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
+        
         var circleXOffset = 260;
-        var stepYOffset = 100;
-        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
-        draw.text('1').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
-        draw.text('Cleanser').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('CeraVe Hydrating Facial Cleanser').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
-        draw.text('Cleanser').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('CeraVe Hydrating Facial Cleanser').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+        for (var i = 1; i <= numSteps; i++) {
+            // TODO: figure out text anchor for centering: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
+            var stepYOffset = 100 * i;
+            draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
+            draw.text(String(i)).move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
+            draw.text(document.getElementById('morningCategory' + i).value).move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+            draw.text(document.getElementById('morningProduct' + i).value).move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+            draw.text(document.getElementById('eveningCategory' + i).value).move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
+            draw.text(document.getElementById('eveningProduct' + i).value).move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+        }
 
-        stepYOffset = 200;
-        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
-        draw.text('2').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
-        draw.text('Active').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('Melano CC Vitamin C Serum').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
-        draw.text('Active').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('Active of the day :) see below').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+        // active of the day
+        draw.image('lotion.png', 105, 105).move(10, height - 105);
+    };
 
-        stepYOffset = 300;
-        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
-        draw.text('3').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
-        draw.text('Essence').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('CosRX 96 Snail Mucin Power Essence').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
-        draw.text('Essence').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('CosRX 96 Snail Mucin Power Essence').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
-
-        stepYOffset = 400;
-        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
-        draw.text('4').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
-        draw.text('Moisturizer').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('CeraVe Moisturizing Cream').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
-        draw.text('Moisturizer').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('CeraVe Moisturizing Cream').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
-
-        stepYOffset = 500;
-        draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
-        draw.text('5').move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
-        draw.text('Sunscreen').move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('Bioré UV Watery Essence SPF50').move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
-        draw.text('Optional').move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-        draw.text('Sheet Mask').move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
-    });
+    var inputs = document.querySelectorAll('input[type=text]');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('change', function() {
+            regenerateChart();
+        });
+    }
+    
 </script>
 </body>
 </html>
