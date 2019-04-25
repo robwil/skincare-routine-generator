@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SVG.js</title>
+  <title>Skincare Routine</title>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.7.1/svg.min.js"></script>
   <link rel="stylesheet" href="https://use.typekit.net/mgf6uol.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -121,6 +121,47 @@
                         <input type="text" class="form-control" id="eveningProduct6" value="">
                     </div>
                 </div>
+
+                <h3 class="mt-4">
+                    Actives
+                </h3>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" checked id="activesEnabled">
+                    <label class="form-check-label" for="activesEnabled">
+                        Enabled
+                    </label>
+                </div>
+                <div class="row mt-4">
+                    <div class="col">
+                        <input type="text" class="form-control" id="active1" value="Retin-A">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="active2" value="AHA">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="active3" value="Retin-A">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" class="form-control" id="active4" value="BHA">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="active5" value="Retin-A">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="active6" value="AHA">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <input type="text" class="form-control" id="active7" value="BHA">
+                    </div>
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -146,8 +187,12 @@
         draw.clear();
 
         var numSteps = getNumberOfSteps();
+        var activesEnabled = document.getElementById('activesEnabled').checked;
         var halfSize = 300;
-        var height = 180 + (numSteps * 100);
+        var height = 245 + (numSteps * 100);
+        if (!activesEnabled) {
+            height -= 150;
+        }
 
         // initialize
         document.getElementById('namePlace').innerHTML = document.getElementById('nameInput').value;
@@ -179,7 +224,25 @@
         }
 
         // active of the day
-        draw.image('lotion.png', 105, 105).move(10, height - 105);
+        if (activesEnabled) {
+            var bottomPadding = 20;
+            var activesHeight = 130;
+            var activesBoxTop = height - activesHeight - bottomPadding;
+            var activeSliceWidth = 56;
+            var colors = ['#ffa6a6', '#ffd8a6', '#fffaa6', '#aeffa6', '#a6f4ff', '#b8a6ff', '#f8a6ff'];
+            var days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+            draw.image('lotion.png', 150, 150).move(10, height - 150 - bottomPadding);
+            
+            for (var i = 0 ; i < 7; i++) {
+                draw.rect(activeSliceWidth, activesHeight).move(180 + (i * activeSliceWidth), activesBoxTop).radius(5).fill(colors[i]).stroke({width: 2, color: '#fff'});
+                draw.text(days[i]).move(190 + (i * activeSliceWidth), activesBoxTop + 40).font({ size: 18, family: 'fira-sans' });
+                draw.text(document.getElementById('active' + (i+1)).value).move(185 + (i * activeSliceWidth), activesBoxTop + 80).font({ size: 14, family: 'fira-sans' });
+            }
+            draw.rect(250, 20).move(250, activesBoxTop + 10).fill('#fff').radius(10);
+            draw.text('Active of the Day').move(280, activesBoxTop + 7).font({ size: 18, family: 'orator-std' });
+            draw.rect(activeSliceWidth * 7, activesHeight).move(180, activesBoxTop).radius(5).fill('transparent').stroke({ width: 2 });
+        }
+        
     };
 
     var inputs = document.querySelectorAll('input[type=text]');
@@ -188,7 +251,14 @@
             regenerateChart();
         });
     }
+    document.getElementById('activesEnabled').addEventListener('change', function() {
+        regenerateChart();
+    });
+
+    // TODO: add color pickers like https://bgrins.github.io/spectrum/
+    // TODO: mobile support. consider editing with text.on('click', function() {...} ) instead of side form
     
 </script>
+
 </body>
 </html>
