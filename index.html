@@ -202,10 +202,10 @@
         draw.rect(halfSize, height).radius(10).fill('#f6eeae');
         draw.rect(halfSize, height).radius(10).move(halfSize, 0).fill('#92b0e6');
         // header text and icons
-        draw.text('Morning').move(90, 20).font({ fill: '#000', size: 42, family: 'orator-std' });
-        draw.text('Evening').move(halfSize + 90, 20).font({ fill: '#000', size: 42, family: 'orator-std' });
-        draw.line(100, 78, 252, 78).stroke({ width: 2 });
-        draw.line(halfSize + 100, 78, halfSize + 252, 78).stroke({ width: 2 });
+        draw.text('Morning').move(90, 10).font({ fill: '#000', size: 42, family: 'orator-std' });
+        draw.text('Evening').move(halfSize + 90, 10).font({ fill: '#000', size: 42, family: 'orator-std' });
+        draw.line(100, 68, 252, 68).stroke({ width: 2 });
+        draw.line(halfSize + 100, 68, halfSize + 252, 68).stroke({ width: 2 });
         draw.image('sun.png', 61, 62).move(18, 12);
         draw.image('moon.png', 51, 51).move(334, 20);
         
@@ -214,13 +214,13 @@
         var circleXOffset = 260;
         for (var i = 1; i <= numSteps; i++) {
             // TODO: figure out text anchor for centering: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor
-            var stepYOffset = 100 * i;
+            var stepYOffset = 100 * i - 10;
             draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
             draw.text(String(i)).move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
-            draw.text(document.getElementById('morningCategory' + i).value).move(100, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-            draw.text(document.getElementById('morningProduct' + i).value).move(20, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
-            draw.text(document.getElementById('eveningCategory' + i).value).move(halfSize + 120, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans' });
-            draw.text(document.getElementById('eveningProduct' + i).value).move(halfSize + 60, stepYOffset + 40).font({ size: 14, family: 'fira-sans' });
+            draw.text(document.getElementById('morningCategory' + i).value).move(130, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans', anchor: 'middle' });
+            draw.text(document.getElementById('morningProduct' + i).value).move(130, stepYOffset + 40).font({ size: 14, family: 'fira-sans', anchor: 'middle' });
+            draw.text(document.getElementById('eveningCategory' + i).value).move(halfSize + 160, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans', anchor: 'middle' });
+            draw.text(document.getElementById('eveningProduct' + i).value).move(halfSize + 160, stepYOffset + 40).font({ size: 14, family: 'fira-sans', anchor: 'middle' });
         }
 
         // active of the day
@@ -235,16 +235,16 @@
             
             for (var i = 0 ; i < 7; i++) {
                 draw.rect(activeSliceWidth, activesHeight).move(180 + (i * activeSliceWidth), activesBoxTop).radius(5).fill(colors[i]).stroke({width: 2, color: '#fff'});
-                draw.text(days[i]).move(190 + (i * activeSliceWidth), activesBoxTop + 40).font({ size: 18, family: 'fira-sans' });
-                draw.text(document.getElementById('active' + (i+1)).value).move(185 + (i * activeSliceWidth), activesBoxTop + 80).font({ size: 14, family: 'fira-sans' });
+                draw.text(days[i]).move(207 + (i * activeSliceWidth), activesBoxTop + 40).font({ size: 18, family: 'fira-sans', anchor: 'middle' });
+                draw.text(document.getElementById('active' + (i+1)).value).move(207 + (i * activeSliceWidth), activesBoxTop + 80).font({ size: 14, family: 'fira-sans', anchor: 'middle' });
             }
             draw.rect(250, 20).move(250, activesBoxTop + 10).fill('#fff').radius(10);
             draw.text('Active of the Day').move(280, activesBoxTop + 7).font({ size: 18, family: 'orator-std' });
             draw.rect(activeSliceWidth * 7, activesHeight).move(180, activesBoxTop).radius(5).fill('transparent').stroke({ width: 2 });
         }
-        
     };
 
+    // Event listeners
     var inputs = document.querySelectorAll('input[type=text]');
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].addEventListener('change', function() {
