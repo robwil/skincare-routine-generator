@@ -137,13 +137,18 @@
                 </div>
 
                 <h3 class="mt-4">
-                    Actives
+                    Extras
                 </h3>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" checked id="activesEnabled">
                     <label class="form-check-label" for="activesEnabled">
                         Enabled
                     </label>
+                </div>
+                <div class="row mt-4">
+                    <div class="col">
+                        <input type="text" class="form-control" id="activeTitle" value="Active of the Day">
+                    </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col">
@@ -253,7 +258,7 @@
                 draw.text(document.getElementById('active' + (i+1)).value).move(207 + (i * activeSliceWidth), activesBoxTop + 80).font({ size: 14, family: 'fira-sans', anchor: 'middle' });
             }
             draw.rect(250, 20).move(250, activesBoxTop + 10).fill('#fff').radius(10);
-            draw.text('Active of the Day').move(280, activesBoxTop + 7).font({ size: 18, family: 'orator-std' });
+            draw.text(document.getElementById('activeTitle').value).move(380, activesBoxTop + 9).font({ size: 18, family: 'orator-std', anchor: 'middle' });
             draw.rect(activeSliceWidth * 7, activesHeight).move(180, activesBoxTop).radius(5).fill('transparent').stroke({ width: 2 });
         }
     };
