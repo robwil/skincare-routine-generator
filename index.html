@@ -232,9 +232,9 @@
             draw.circle(80).fill('#fff').stroke({ width: 1 }).move(circleXOffset, stepYOffset);
             draw.text(String(i)).move(circleXOffset + 30, stepYOffset + 5).font({ size: 42, family: 'fira-sans' });
             draw.text(document.getElementById('morningCategory' + i).value).move(130, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans', anchor: 'middle' });
-            draw.text(document.getElementById('morningProduct' + i).value).move(130, stepYOffset + 40).font({ size: 14, family: 'fira-sans', anchor: 'middle' });
+            draw.text(document.getElementById('morningProduct' + i).value.replace(/\\n/g, "\n")).move(130, stepYOffset + 40).font({ size: 14, family: 'fira-sans', anchor: 'middle' });
             draw.text(document.getElementById('eveningCategory' + i).value).move(halfSize + 160, stepYOffset + 15).font({ weight: 'bold', size: 18, family: 'fira-sans', anchor: 'middle' });
-            draw.text(document.getElementById('eveningProduct' + i).value).move(halfSize + 160, stepYOffset + 40).font({ size: 14, family: 'fira-sans', anchor: 'middle' });
+            draw.text(document.getElementById('eveningProduct' + i).value.replace(/\\n/g, "\n")).move(halfSize + 160, stepYOffset + 40).font({ size: 14, family: 'fira-sans', anchor: 'middle' });
         }
 
         // active of the day
